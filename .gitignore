@@ -13,3 +13,7 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Ignore contents of the virtual_envs folder, except files! Only subfolders are ignored!
+virtual_envs/**
+!virtual_envs/*.*
