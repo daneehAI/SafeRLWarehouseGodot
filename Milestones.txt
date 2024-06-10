@@ -1,0 +1,19 @@
+
+LTLF
+LTL synthese
+Stochastisch: 
+Continu MDP
+ATL
+
+
+
+- Testen van de packages om te kijken of alles naar verwachting functioneert.
+- De feedback die jullie op mijn proposal gaven verwerken
+	- Waarom warehouse simulation? Wat zijn de uitdagingen en de features van zo'n omgeving?
+- De warehouse simulatie implementeren en testen met een unshielded agent (om vast te stellen wat voor agent nodig is om de taak uit te voeren)
+- Een arbitrair shield implementeren en testen (in de zin van "werkt de code?", niet "hoe goed is deze shield?")
+- Onderzoek doen naar shielding specificaties, en die implementeren
+- Goed onderbouwde metrics vaststellen waarop de performance wordt beoordeeld
+- Het daadwerkelijke onderzoek uitvoeren
+
+But the application area / models you are using are not really talked about. This needs to be motivated as well; why is this application area interesting? What are the challenges? What are the features?

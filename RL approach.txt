@@ -1,0 +1,8 @@
+Pre-shielding: PPO with action masking. Requires discrete action space.
+
+https://arxiv.org/abs/2006.14171
+
+This research tests invalid action penalties and invalid action masking. These correspond to pre-shielding and post-shielding:
+- Pre-shielding has the shield evaluate the state and eliminate unsafe actions, and then lets the agent choose from the remaining actions. Allowing the agent to choose an action from a subset of the action space is exactly what action masking is.
+- Post-shielding has the agent select an action, evaluates that action using the shield, and if it is unsafe, punishes the agent and selects a safe action. Punishing an unsafe action corresponds perfectly to invalid action penalties. Selection of the safe action is apparently done by the shield. Alternatively, assuming some kind of softmax action selection before the shield, the next highest rated action could be selected for evaluation using the shield.
+
