@@ -20,7 +20,7 @@ Install the pytorch variant of your choosing using the commands provided by http
         pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
     
     for ROCm (AMD graphics cards):
-        coming soon? My laptop has an AMD GPU, so I might add this later
+        technically possible, but requires Linux instead of Windows.
 
 Upsides to using a GPU:
 1. Much, much faster training and inference
