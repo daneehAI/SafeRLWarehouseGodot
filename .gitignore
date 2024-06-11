@@ -17,3 +17,7 @@ mono_crash.*.json
 # Ignore contents of the virtual_envs folder, except files! Only subfolders are ignored!
 virtual_envs/**
 !virtual_envs/*.*
+
+# Ignore contents of logs and Models folders; important logs and models shall be put in the Results folder.
+logs/**
+Models/**
