@@ -1,0 +1,64 @@
+Python 3.11
+Created a python venv, pip install packages godot-rl and omega
+Download Godot 4.2.2 .NET version
+Create Godot project WarehouseSimulation
+AssetLib -> Godot RL Agents; project settings -> plugins -> activate Godot RL agents; restart Godot editor
+
+
+Create simulation
+
+Customize AIController3D with obs, reward, action space, and set action function
+
+gdrl --env_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\RingPong.exe --timesteps=1_000 --onnx_export_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\test_model.onnx --save_model_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\test_model.zip --viz
+
+
+ONNX didn't work
+
+https://github.com/edbeeching/godot_rl_agents/blob/main/docs/ADV_STABLE_BASELINES_3.md
+
+Copied sb3 example, run following command:
+
+python SafeRLCode\stable_baselines3_example.py --env_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\RingPong.exe --timesteps=20_000 --onnx_export_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\discrete_model.onnx --save_model_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\discrete_model.zip --speedup=8 --n_parallel=4
+
+This saved the model
+
+Now I will try running the game in inference with this model
+
+python SafeRLCode\stable_baselines3_example.py --env_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\RingPong.exe --timesteps=1_000 --resume_model_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\discrete_model.zip --inference --viz
+
+This works!
+
+Tangent: GPU training and inference!
+My RTX 3090 can speed up training and inference drastically. This requires a few steps:
+Install CUDA 12.1.1
+Install cuDNN 9.2.0
+Install a pytorch version that supports these things: pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+added parameter device='cuda' to sb3 model instantiation
+
+Works like a charm.
+Some harmless warnings and errors when running training on GPU and visualization at the same time.
+
+
+
+Next step: discretize RingPong.
+This is done because pre-shielding requires action masking, which sb3 only supports for discrete action spaces.
+Instead of continuous action with range -1 to 1, create a discrete action with 3 states for -1, 0 and 1.
+This works, but onnx export breaks.
+
+New commands without onnx export:
+
+python SafeRLCode\stable_baselines3_example.py --env_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\RingPong.exe --timesteps=20_000 --save_model_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\discrete_model.zip --speedup=8 --n_parallel=4
+
+python SafeRLCode\stable_baselines3_example.py --env_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\RingPong.exe --timesteps=1_000 --resume_model_path=C:\Users\danir\OneDrive\Bureaublad\SafeRLThesis\Builds\RingPong\discrete_model.zip --inference --viz
+
+
+Creating two separate venvs for pytorch cpu and pytorch cuda:
+take current venv, pip freeze > requirements.txt, create and activate new venv "venv_gpu", pip3 install requirements.txt
+(pip install; pytorch gave error so pip3 install pytorch cuda)
+(For some reason godot-rl and sb3-contrib needed to be installed separately)
+
+Result:
+venv for CPU
+venv_gpu for CUDA
+
+Next step: maskable PPO
