@@ -61,4 +61,18 @@ Result:
 venv for CPU
 venv_gpu for CUDA
 
-Next step: maskable PPO
+
+
+MCheck model checker!
+LTL requires extra downloads
+CTL works great!
+
+
+
+Next step: Warehouse environment
+
+Next step: Apply PPO to warehouse
+
+Next step: Post-shielding!
+
+Next step: maskable PPO and pre-shielding!

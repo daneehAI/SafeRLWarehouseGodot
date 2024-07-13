@@ -1,0 +1,11 @@
+digraph G {
+	S0 -> S1
+	S1 -> S2
+	S2 -> S0
+	S1 -> S3
+	
+	S0 [label = "S0: r", shape="box"]
+	S1 [label = "S1: r, y"]
+	S2 [label = "S2: g"]
+	S3 [label = "S3: v"]
+}
