@@ -6,31 +6,31 @@
 [node name="Train" type="Node2D"]
 
 [node name="Game" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(-1780, -800)
+position = Vector2(-30, -8)
 
 [node name="Game2" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(-780, -800)
+position = Vector2(-10, -8)
 
 [node name="Game3" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(220, -800)
+position = Vector2(10, -8)
 
 [node name="Game4" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(1220, -800)
+position = Vector2(30, -8)
 
 [node name="Game5" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(-1780, 200)
+position = Vector2(-25, 2)
 
 [node name="Game6" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(-780, 200)
+position = Vector2(-10, 2)
 
 [node name="Game7" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(220, 200)
+position = Vector2(10, 2)
 
 [node name="Game8" parent="." instance=ExtResource("1_t7mqb")]
-position = Vector2(1220, 200)
+position = Vector2(25, 2)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(25, 25)
 
 [node name="Polygon2D" type="Polygon2D" parent="Camera2D"]
 z_index = -2
@@ -40,4 +40,5 @@ polygon = PackedVector2Array(-1, 1, 1, 1, 1, -1, -1, -1)
 
 [node name="Sync" type="Node" parent="."]
 script = ExtResource("2_bv7x3")
+control_mode = 0
 action_repeat = 1

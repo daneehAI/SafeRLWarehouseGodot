@@ -2,7 +2,7 @@ extends Node2D
 
 var snake_segments = []
 var direction = Vector2.RIGHT
-var segment_size = 16
+var segment_size = 1
 
 var segment_prefab = preload("res://segment.tscn")
 
@@ -53,20 +53,43 @@ func move_snake():
 		elif move == 3:
 			direction = Vector2.RIGHT
 	
+	
+	direction = shield(direction)
+	
 	var new_position = snake_segments[0].position + direction * segment_size
+	
 	var new_segment = create_segment(new_position)
 	snake_segments.insert(0, new_segment)
 	
 	if check_collision():
+		ai_controller.reward -= 50.0
 		game_over()
 		return
 	
 	if new_position == get_parent().get_node("Food").position:
 		get_parent().get_node("Food").randomize_position()
-		ai_controller.reward += 1.0
+		ai_controller.reward += 10.0
 	else:
 		var last_segment = snake_segments.pop_back()
 		last_segment.queue_free()
+		ai_controller.reward -= 0.2
+
+func shield(direction, to_try = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]) -> Vector2:
+	var new_position = snake_segments[0].position + direction * segment_size
+	to_try.erase(direction)
+	
+	if to_try.is_empty():
+		return direction
+	
+	if new_position.x < 0 or new_position.x > boundaries.x:
+		return shield(to_try.pick_random(), to_try)
+	if new_position.y < 0 or new_position.y > boundaries.y:
+		return shield(to_try.pick_random(), to_try)
+	
+	for i in range(0, snake_segments.size()):
+		if new_position == snake_segments[i].position:
+			return shield(to_try.pick_random(), to_try)
+	return direction
 
 func check_collision():
 	var head_position = snake_segments[0].position

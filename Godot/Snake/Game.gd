@@ -1,8 +1,8 @@
 extends Node2D
 class_name game
 
-var segment_size = 16
-var grid_size = Vector2i(35, 35) # Adjust based on your screen size
+var segment_size = 1
+var grid_size = Vector2i(36, 36) # Adjust based on your screen size
 
 @onready var food = $Food
 @onready var snake = $Snake
@@ -24,6 +24,8 @@ func init_state():
 	state = []
 	state_size = grid_size.x * grid_size.y
 	state.resize(state_size)
+	
+	snake.ai_controller.obs_dimensions = [1, grid_size.y, grid_size.x]
 
 func init_borders():
 	snake.boundaries = Vector2i(grid_size * segment_size)
@@ -49,7 +51,7 @@ func reset():
 	
 	move_timer.start()
 
-func get_state() -> Array:
+func get_state() -> PackedByteArray:
 	for i in state_size:
 		state[i] = 0
 	
@@ -62,4 +64,4 @@ func get_state() -> Array:
 	return state
 
 func coords_to_index(coords : Vector2i):
-	return coords.y/segment_size * grid_size.x + coords.x/segment_size
+	return coords.y/segment_size-1 * grid_size.x-1 + coords.x/segment_size-1
